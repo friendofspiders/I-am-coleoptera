@@ -11,8 +11,8 @@ h1, p {
 }
 
 input {
-  background-color: rgba(255, 0, 0, 0);
-  color: #FFFF00;
+  background-color: rgba(255, 0, 0, 0) !important;
+  color: #FFFF00 !important;
   font-family: 'Courier', Courier, monospace;
   padding: 8px;
   margin: 5px;
@@ -22,13 +22,13 @@ input {
 }
 
 input::after {
-  content: '';
+  content: '' !important;
   position: absolute;
   top: 50%;
   left: 0;
   width: 1px;
   height: 20px;
-  background-color: #FF0000;
+  background-color: #FF0000 !important;
   animation: blink 0.5s infinite;
 }
 
