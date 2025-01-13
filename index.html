@@ -30,15 +30,18 @@
       outline: none; /* Remove the default outline */
     }
 
-    input::before {
-      content: '|'; /* Use a pipe character as a cursor */
-      color: #FF0000;
+    input::after {
+      content: '';
       position: absolute;
+      top: 50%;
       left: 0;
-      animation: cursorBlink 0.5s infinite;
+      width: 1px;
+      height: 20px;
+      background-color: #FF0000;
+      animation: blink 0.5s infinite;
     }
 
-    @keyframes cursorBlink {
+    @keyframes blink {
       0%, 100% {
         opacity: 0; /* Invisible at start and end */
       }
@@ -65,7 +68,7 @@
   <p id="question"></p>
 
   <form id="originalForm">
-    <input type="text" id="userAnswer">
+    <input type="text" id="userAnswer" autocomplete="off">
   </form>
 
   <!--earliest words -->
@@ -158,3 +161,4 @@
 </body>
 
 </html>
+
