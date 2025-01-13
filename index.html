@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>𓆣</title>
+  <style>
+    body {
+      background-color: black;
+      color: #00FF00;
+      font-family: 'Courier', Courier, monospace;
+      margin: 20px;
+    }
+
+    h1, p {
+      color: #00FF00;
+      font-family: 'Courier', Courier, monospace;
+    }
+
+    input {
+      background-color: rgba(255, 0, 0, 0);
+      color: #FFFF00;
+      font-family: 'Courier', Courier, monospace;
+      padding: 8px;
+      margin: 5px;
+      border: none;
+      position: relative;
+      outline: none; /* Remove the default outline */
+    }
+
+    input::before {
+      content: '|'; /* Use a pipe character as a cursor */
+      color: #FF0000;
+      position: absolute;
+      left: 0;
+      animation: cursorBlink 0.5s infinite;
+    }
+
+    @keyframes cursorBlink {
+      0%, 100% {
+        opacity: 0; /* Invisible at start and end */
+      }
+      50% {
+        opacity: 1; /* Visible during the blink */
+      }
+    }
+
+    #result {
+      color: #FF0000;
+      font-style: italic;
+    }
+
+    /* Set white-space to pre-line for correct interpretation of \n characters */
+    #question {
+      white-space: pre-line;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Cheating is no fun! -->
+  <p id="question"></p>
+
+  <form id="originalForm">
+    <input type="text" id="userAnswer">
+  </form>
+
+  <!--earliest words -->
+  <p id="result"></p>
+
+  <!--Last warning! No cheating!-->
+  <div id="questionSetsContainer"></div>
+
+  <script>
+    var questionSets = [
+      { question: "Hello.\nIt's nice to meet you.\nThank you for visiting me.\n\nI want to play riddles.\n\n Five riddles. \nBut only if you can answer me this:\n\nWhat is my name?", answers: ["Coleoptera", "beetle", "coleoptera"] },
+      { question: "That is my name. Coleoptera.\nI have lots of siblings.\n\n Five riddles. \n\n\n\nIf you get them all right, I'm going to send you to my cousin.\n\n You know her. I've seen where you live--<i>how you live.</i>\nHer questions are much more difficult. I don't like them.\nFun things are supposed to be easy.\n \n \n Your first riddle: \n \n I'm not alive, but I can grow;\nI don't have lungs, but I need air;\nI don't have a mouth, but water kills me.\nWhat am I?\n\n What do I think of, friend?", answers: ["fire","Flame","Fire", "a flame", "a fire"] },
+      { question: "That's right! Flame. Or fire. \n \n I won't go far from there. Third question:\n\n\n In shadows deep where moonlight's shy,\n A tiny creature starts to fly.\nIt carries a glimmer, a secret to share, \n A bug that illuminates the midnight air.\n What enigmatic insect am I?", answers: ["lightning bug","firefly","a firefly","a lightning bug", "the lightning bug","the firefly"] },
+      { question: "Yes! Yes!\n \n \n I don't know any fireflies. Would you believe that? \n \n \n No time to waste:\n\n what is Batman's real name?\n\nI'm just kidding. \n What's black and white, and read all over?", answers: ["book","a book","newspaper","a newspaper","the newspaper","books","newspapers"] },
+      { question: "That's true. \n \n I was worried you'd say the penguin-joke. I'm not sure I like that one very much.\n \n You're almost done. Maybe I'll make the next one very hard. \n \n I don't like being alone here.\n \n \n What has a head, but only at night?", answers: ["pillow","a pillow","the pillow"] },
+      { question: "Pillow. You're very clever.\n\n Alright. I heard this one a long time ago--You can't possibly know it. \n\n\n What walks on four legs in the morning, two in the afternoon, and three at night?", answers: ["man","humans", "me","a man","a human", "human", "men"] }
+    ];
+
+    var currentQuestionIndex = 0;
+
+    function typeQuestion() {
+      var questionText = questionSets[currentQuestionIndex].question;
+      var questionElement = document.getElementById("question");
+      questionElement.innerHTML = ""; // Clear any previous content
+      var index = 0;
+
+      function typeNextCharacter() {
+        if (index <= questionText.length) {
+          questionElement.innerHTML = questionText.substring(0, index);
+          index++;
+          setTimeout(typeNextCharacter, 50);
+        } else {
+          document.getElementById("originalForm").style.display = "block";
+          document.getElementById("result").innerText = "";
+          document.getElementById("userAnswer").focus(); // Focus the input after typing question
+        }
+      }
+
+      typeNextCharacter();
+    }
+
+    function typeCongratulations() {
+      var congratulationsText = "Congratulations.--You're too smart for me.\n\n Visit my sister, and beware her wisdom: https://friendofspiders.github.io/blattodea/ <br><br>\n\n --𓆣";
+      var congratulationsElement = document.getElementById("questionSetsContainer");
+      congratulationsElement.innerHTML = ""; // Clear any previous content
+      var index = 0;
+
+      function typeNextCharacter() {
+        if (index <= congratulationsText.length) {
+          congratulationsElement.innerHTML = congratulationsText.substring(0, index);
+          index++;
+          setTimeout(typeNextCharacter, 50);
+        }
+      }
+
+      typeNextCharacter();
+    }
+
+    document.getElementById("originalForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      checkAnswer();
+    });
+
+    function checkAnswer() {
+      var userAnswer = document.getElementById("userAnswer").value.toLowerCase();
+      var acceptableAnswers = questionSets[currentQuestionIndex].answers.map(answer => answer.toLowerCase());
+
+      if (acceptableAnswers.includes(userAnswer)) {
+        document.getElementById("result").innerText = "";
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < questionSets.length) {
+          document.getElementById("originalForm").style.display = "none";
+          document.getElementById("userAnswer").value = ""; // Clear the input
+          typeQuestion();
+        } else {
+          typeCongratulations();
+        }
+      } else {
+        document.getElementById("result").innerText = "I'm sorry. That isn't the right answer.";
+      }
+    }
+
+    typeQuestion();
+  </script>
+  <!--early words-->
+<!-- later words-->
+  <!--NBUUFX 25:40 -->
+  <!--𓆣-->
+</body>
+
+</html>
