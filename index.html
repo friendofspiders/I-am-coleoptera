@@ -19,11 +19,6 @@
       font-family: 'Courier', Courier, monospace;
     }
 
-    #inputContainer {
-      display: inline-flex;
-      align-items: center;
-    }
-
     input {
       background-color: rgba(255, 0, 0, 0);
       color: #FFFF00;
@@ -32,23 +27,26 @@
       margin: 5px;
       border: none;
       position: relative;
-      outline: none;
+      outline: none; /* Remove the default outline */
     }
 
-    .cursor {
+    input::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
       width: 1px;
       height: 20px;
       background-color: #FF0000;
       animation: blink 0.5s infinite;
-      margin-left: 4px;
     }
 
     @keyframes blink {
       0%, 100% {
-        opacity: 0;
+        opacity: 0; /* Invisible at start and end */
       }
       50% {
-        opacity: 1;
+        opacity: 1; /* Visible during the blink */
       }
     }
 
@@ -57,6 +55,7 @@
       font-style: italic;
     }
 
+    /* Set white-space to pre-line for correct interpretation of \n characters */
     #question {
       white-space: pre-line;
     }
@@ -69,10 +68,7 @@
   <p id="question"></p>
 
   <form id="originalForm">
-    <div id="inputContainer">
-      <input type="text" id="userAnswer" autocomplete="off">
-      <span class="cursor"></span>
-    </div>
+    <input type="text" id="userAnswer" autocomplete="off">
   </form>
 
   <!--I don't mind the name Beetle. Coleoptera is just my Christian name.-->
@@ -159,11 +155,9 @@
     typeQuestion();
   </script>
   <!--I have another sibling that's really into riddles, too. He sent me a funny-looking word and some numbers. He says it means something. I don't know what it means. Even if I did, I don't have his address to write to him. My sister does but she won't give it to me. I think she's mad at me.-->
-  <!-- Maybe you can figure it out:-->
+<!-- Maybe you can figure it out:-->
   <!--NBUUFX 25:40 -->
   <!--𓆣-->
 </body>
 
 </html>
-
-
