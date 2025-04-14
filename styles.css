@@ -1,4 +1,4 @@
-body {
+css: body {
   background-color: black;
   color: #00FF00;
   font-family: 'Courier', Courier, monospace;
@@ -21,13 +21,15 @@ input {
   outline: none; /* Remove the default outline */
 }
 
-/* Blinking red cursor next to input */
-.cursor {
+input::after {
+  content: '' !important;
+  position: absolute;
+  top: 50%;
+  left: 0;
   width: 1px;
   height: 20px;
-  background-color: #FF0000;
+  background-color: #FF0000 !important;
   animation: blink 0.5s infinite;
-  margin-left: 4px;
 }
 
 @keyframes blink {
