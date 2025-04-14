@@ -21,15 +21,13 @@ input {
   outline: none; /* Remove the default outline */
 }
 
-input::after {
-  content: '' !important;
-  position: absolute;
-  top: 50%;
-  left: 0;
+/* Blinking red cursor next to input */
+.cursor {
   width: 1px;
   height: 20px;
-  background-color: #FF0000 !important;
+  background-color: #FF0000;
   animation: blink 0.5s infinite;
+  margin-left: 4px;
 }
 
 @keyframes blink {
